@@ -34,7 +34,7 @@
         android:layout_marginTop="33dp"
         android:textColor="@color/colorDivider"
         android:textSize="40sp"
-        android:id="@+id/textView"
+        android:id="@+id/appNameTextView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
