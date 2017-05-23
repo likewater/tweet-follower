@@ -30,10 +30,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MyRestaurants"
-        android:layout_marginTop="33dp"
+        android:text="My Restaurants"
+        android:layout_marginTop="35dp"
         android:textColor="@color/colorDivider"
-        android:textSize="40sp"
+        android:textSize="60sp"
+        android:textStyle="bold"
         android:id="@+id/appNameTextView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
