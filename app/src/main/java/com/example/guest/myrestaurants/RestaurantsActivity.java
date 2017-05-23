@@ -52,10 +52,10 @@ public class RestaurantsActivity extends AppCompatActivity {
         mLocationTextView = (TextView) findViewById(R.id.locationTextView);
 
         MyRestaurantsArrayAdapter adapter = new MyRestaurantsArrayAdapter(this, android.R.layout.simple_list_item_1,
-                restaurants, cuisines); //must match constructor!
+               restaurants, cuisines); //must match constructor!
 
 //        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, restaurants);
-//        mListView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
