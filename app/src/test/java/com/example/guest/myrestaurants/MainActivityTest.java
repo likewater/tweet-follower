@@ -5,7 +5,10 @@ package com.example.guest.myrestaurants;
         import android.os.Build;
 import android.widget.TextView;
 
-import org.junit.Before;
+        import com.example.guest.myrestaurants.ui.MainActivity;
+        import com.example.guest.myrestaurants.ui.RestaurantsActivity;
+
+        import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
