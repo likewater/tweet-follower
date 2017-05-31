@@ -10,20 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import okhttp3.Call;
+import okhttp3.Callback;
+import java.io.IOException;
+import java.util.ArrayList;
 
-//public class RestaurantsActivity extends AppCompatActivity {
-//    private TextView mLocationTextView;
-//    private ListView mListView;
-//    private String[] restaurants = new String[] {"Mi Mero Mole", "Mother's Bistro",
-//            "Life of Pie", "Screen Door", "Luc Lac", "Sweet Basil",
-//            "Slappy Cakes", "Equinox", "Miss Delta's", "Andina",
-//            "Lardo", "Portland City Grill", "Fat Head's Brewery",
-//            "Chipotle", "Subway"};
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_restaurants);
+import okhttp3.Response;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +23,8 @@ import butterknife.ButterKnife;
 public class RestaurantsActivity extends AppCompatActivity {
     @Bind(R.id.locationTextView) TextView mLocationTextView;
     @Bind(R.id.listView) ListView mListView;
+
+    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
 
     public static final String TAG = RestaurantsActivity.class.getSimpleName();
 
@@ -71,5 +65,33 @@ public class RestaurantsActivity extends AppCompatActivity {
         mLocationTextView.setText("Here are all the restaurants near: " + location);
         Log.d("TAG", "In the onCreate method!");
 
+        getRestaurants(location);
+
     }
+
+    private void getRestaurants(String location) {
+        final YelpService yelpService = new YelpService();
+        yelpService.findRestaurants(location, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    if (response.isSuccessful()) {
+                        Log.v(TAG, jsonData);
+                        mRestaurants = yelpService.processResults(response);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+    }
+
 }
