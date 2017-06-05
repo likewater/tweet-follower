@@ -22,15 +22,15 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 public class TwitterService {
 
     public static void findTweets(String location, Callback callback) {
-        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.YELP_CONSUMER_KEY, Constants.YELP_CONSUMER_SECRET);
-        consumer.setTokenWithSecret(Constants.YELP_TOKEN, Constants.YELP_TOKEN_SECRET);
+        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.TWITTER_CONSUMER_KEY, Constants.TWITTER_CONSUMER_SECRET);
+        consumer.setTokenWithSecret(Constants.TWITTER_TOKEN, Constants.TWITTER_TOKEN_SECRET);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new SigningInterceptor(consumer))
                 .build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YELP_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.YELP_LOCATION_QUERY_PARAMETER, location);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.TWITTER_BASE_URL).newBuilder();
+        urlBuilder.addQueryParameter(Constants.TWITTER_LOCATION_QUERY_PARAMETER, location);
         String url = urlBuilder.build().toString();
 
         Request request= new Request.Builder()

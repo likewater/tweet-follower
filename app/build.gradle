@@ -26,10 +26,10 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'YELP_CONSUMER_KEY', YelpConsumerKey
-        it.buildConfigField 'String', 'YELP_CONSUMER_SECRET', YelpConsumerSecret
-        it.buildConfigField 'String', 'YELP_TOKEN', YelpToken
-        it.buildConfigField 'String', 'YELP_TOKEN_SECRET', YelpTokenSecret
+        it.buildConfigField 'String', 'TWITTER_CONSUMER_KEY', TwitterConsumerKey
+        it.buildConfigField 'String', 'TWITTER_CONSUMER_SECRET', TwitterConsumerSecret
+        it.buildConfigField 'String', 'TWITTER_TOKEN', TwitterToken
+        it.buildConfigField 'String', 'TWITTER_TOKEN_SECRET', TwitterTokenSecret
     }
 }
 
