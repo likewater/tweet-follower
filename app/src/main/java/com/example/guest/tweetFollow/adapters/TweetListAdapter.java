@@ -83,8 +83,8 @@ public class TweetListAdapter extends RecyclerView.Adapter<TweetListAdapter.Twee
                     .into(mTweetImageView);
 
             mNameTextView.setText(tweet.getName());
-            mCategoryTextView.setText(tweet.getCategories().get(0));
-            mRatingTextView.setText("Rating: " + tweet.getRating() + "/5");
+//            mCategoryTextView.setText(tweet.getCategories().get(0));
+//            mRatingTextView.setText("Rating: " + tweet.getRating() + "/5");
         }
     }
 }

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,25 +48,24 @@ public class TwitterService {
         try {
             String jsonData = response.body().string();
             if (response.isSuccessful()) {
-                JSONObject yelpJSON = new JSONObject(jsonData);
-                JSONArray businessesJSON = yelpJSON.getJSONArray("businesses");
-                for (int i = 0; i < businessesJSON.length(); i++) {
-                    JSONObject tweetJSON = businessesJSON.getJSONObject(i);
-                    String name = tweetJSON.getString("name");
-                    String phone = tweetJSON.optString("display_phone", "Phone not available");
-                    String website = tweetJSON.getString("url");
-                    double rating = tweetJSON.getDouble("rating");
+                JSONObject twitterJSON = new JSONObject(jsonData);
+                JSONArray tweetsJSON = twitterJSON.getJSONArray("tweets");
+                for (int i = 0; i < tweetsJSON.length(); i++) {
+                    JSONObject tweetJSON = tweetsJSON.getJSONObject(i);
+                    String username = tweetJSON.getString("username");
+                    String content = tweetJSON.getString("content");
+                    //Date createdAt = createdAt.getTime();
                     String imageUrl = tweetJSON.getString("image_url");
-                    double latitude = tweetJSON.getJSONObject("location")
-                            .getJSONObject("coordinate").getDouble("latitude");
-                    double longitude = tweetJSON.getJSONObject("location")
-                            .getJSONObject("coordinate").getDouble("longitude");
-                    ArrayList<String> address = new ArrayList<>();
-                    JSONArray addressJSON = tweetJSON.getJSONObject("location")
-                            .getJSONArray("display_address");
-                    for (int y = 0; y < addressJSON.length(); y++) {
-                        address.add(addressJSON.get(y).toString());
-                    }
+//                    double latitude = tweetJSON.getJSONObject("location")
+//                            .getJSONObject("coordinate").getDouble("latitude");
+//                    double longitude = tweetJSON.getJSONObject("location")
+//                            .getJSONObject("coordinate").getDouble("longitude");
+//                    ArrayList<String> address = new ArrayList<>();
+//                    JSONArray addressJSON = tweetJSON.getJSONObject("location")
+//                            .getJSONArray("display_address");
+//                    for (int y = 0; y < addressJSON.length(); y++) {
+//                        address.add(addressJSON.get(y).toString());
+//                    }
 
                     ArrayList<String> categories = new ArrayList<>();
                     JSONArray categoriesJSON = tweetJSON.getJSONArray("categories");
@@ -73,8 +73,7 @@ public class TwitterService {
                     for (int y = 0; y < categoriesJSON.length(); y++) {
                         categories.add(categoriesJSON.getJSONArray(y).get(0).toString());
                     }
-                    Tweet tweet = new Tweet(name, phone, website, rating,
-                            imageUrl, address, latitude, longitude, categories);
+                    Tweet tweet = new Tweet(username, content, imageUrl);
                     tweets.add(tweet);
                 }
             }

@@ -21,7 +21,7 @@ import org.parceler.Parcels;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TweetDetailFragment extends Fragment implements View.OnClickListener {
+public class TweetDetailFragment extends Fragment  {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
 
@@ -62,36 +62,36 @@ public class TweetDetailFragment extends Fragment implements View.OnClickListene
                 .centerCrop()
                 .into(mImageLabel);
 
-        mNameLabel.setText(mTweet.getName());
-        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mTweet.getCategories()));
-        mRatingLabel.setText(Double.toString(mTweet.getRating()) + "/5");
-        mPhoneLabel.setText(mTweet.getPhone());
-        mAddressLabel.setText(android.text.TextUtils.join(", ", mTweet.getAddress()));
-
-        mWebsiteLabel.setOnClickListener(this);
-        mPhoneLabel.setOnClickListener(this);
-        mAddressLabel.setOnClickListener(this);
+//        mNameLabel.setText(mTweet.getName());
+//        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mTweet.getCategories()));
+//        mRatingLabel.setText(Double.toString(mTweet.getRating()) + "/5");
+//        mPhoneLabel.setText(mTweet.getPhone());
+//        mAddressLabel.setText(android.text.TextUtils.join(", ", mTweet.getAddress()));
+//
+//        mWebsiteLabel.setOnClickListener(this);
+//        mPhoneLabel.setOnClickListener(this);
+//        mAddressLabel.setOnClickListener(this);
 
         return view;
     }
-    @Override
-    public void onClick(View v) {
-        if (v == mWebsiteLabel) {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(mTweet.getWebsite()));
-            startActivity(webIntent);
-        }
-        if (v == mPhoneLabel) {
-            Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
-                    Uri.parse("tel:" + mTweet.getPhone()));
-            startActivity(phoneIntent);
-        }
-        if (v == mAddressLabel) {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("geo:" + mTweet.getLatitude()
-                            + "," + mTweet.getLongitude()
-                            + "?q=(" + mTweet.getName() + ")"));
-            startActivity(mapIntent);
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v == mWebsiteLabel) {
+//            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse(mTweet.getWebsite()));
+//            startActivity(webIntent);
+//        }
+//        if (v == mPhoneLabel) {
+//            Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
+//                    Uri.parse("tel:" + mTweet.getPhone()));
+//            startActivity(phoneIntent);
+//        }
+//        if (v == mAddressLabel) {
+//            Intent mapIntent = new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("geo:" + mTweet.getLatitude()
+//                            + "," + mTweet.getLongitude()
+//                            + "?q=(" + mTweet.getName() + ")"));
+//            startActivity(mapIntent);
+//        }
+//    }
 }
