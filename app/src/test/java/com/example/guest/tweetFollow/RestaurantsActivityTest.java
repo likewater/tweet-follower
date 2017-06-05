@@ -1,9 +1,9 @@
-package com.example.guest.myrestaurants;
+package com.example.guest.tweetFollow;
 
 import android.os.Build;
 import android.widget.ListView;
 
-import com.example.guest.myrestaurants.ui.RestaurantsActivity;
+import com.example.guest.tweetFollow.ui.TweetsActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +19,12 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 
 public class RestaurantsActivityTest {
-    private RestaurantsActivity activity;
+    private TweetsActivity activity;
     private ListView mRestaurantListView;
 
     @Before
     public void setup() {
-        activity = Robolectric.setupActivity(RestaurantsActivity.class);
+        activity = Robolectric.setupActivity(TweetsActivity.class);
         mRestaurantListView = (ListView) activity.findViewById(R.id.listView);
     }
 

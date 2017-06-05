@@ -1,11 +1,11 @@
-package com.example.guest.myrestaurants.models;
+package com.example.guest.tweetFollow.models;
 
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
 @Parcel
-public class Restaurant {
+public class Tweet {
     String mName;
     String mPhone;
     String mWebsite;
@@ -16,11 +16,11 @@ public class Restaurant {
     double mLongitude;
     ArrayList<String> mCategories = new ArrayList<>();
 
-    public Restaurant() {}
+    public Tweet() {}
 
-    public Restaurant(String name, String phone, String website,
-                      double rating, String imageUrl, ArrayList<String> address,
-                      double latitude, double longitude, ArrayList<String> categories) {
+    public Tweet(String name, String phone, String website,
+                 double rating, String imageUrl, ArrayList<String> address,
+                 double latitude, double longitude, ArrayList<String> categories) {
         this.mName = name;
         this.mPhone = phone;
         this.mWebsite = website;

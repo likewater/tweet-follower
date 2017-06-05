@@ -1,12 +1,12 @@
-package com.example.guest.myrestaurants;
+package com.example.guest.tweetFollow;
 
 
         import android.content.Intent;
         import android.os.Build;
 import android.widget.TextView;
 
-        import com.example.guest.myrestaurants.ui.MainActivity;
-        import com.example.guest.myrestaurants.ui.RestaurantsActivity;
+        import com.example.guest.tweetFollow.ui.MainActivity;
+        import com.example.guest.tweetFollow.ui.TweetsActivity;
 
         import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class MainActivityTest {
     @Test
     public void secondActivityStarted() {
         activity.findViewById(R.id.findRestaurantsButton).performClick();
-        Intent expectedIntent = new Intent(activity, RestaurantsActivity.class);
+        Intent expectedIntent = new Intent(activity, TweetsActivity.class);
         ShadowActivity shadowActivity = org.robolectric.Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
         assertTrue(actualIntent.filterEquals(expectedIntent));

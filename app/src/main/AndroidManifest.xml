@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.guest.myrestaurants">
+    package="com.example.guest.tweetFollow">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.RestaurantsActivity">
+        <activity android:name=".ui.TweetsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.myrestaurants.ui.MainActivity"></meta-data>
+                android:value=".ui.MainActivity"></meta-data>
         </activity>
-        <activity android:name=".ui.RestaurantDetailActivity"></activity>
+        <activity android:name=".ui.TweetDetailActivity"></activity>
     </application>
 
 </manifest>

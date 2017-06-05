@@ -1,4 +1,4 @@
-package com.example.guest.myrestaurants;
+package com.example.guest.tweetFollow;
 
 import org.junit.Test;
 

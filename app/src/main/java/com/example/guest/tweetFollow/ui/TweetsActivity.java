@@ -1,19 +1,15 @@
-package com.example.guest.myrestaurants.ui;
+package com.example.guest.tweetFollow.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.guest.myrestaurants.R;
-import com.example.guest.myrestaurants.adapters.RestaurantListAdapter;
-import com.example.guest.myrestaurants.models.Restaurant;
-import com.example.guest.myrestaurants.services.YelpService;
+import com.example.guest.tweetFollow.R;
+import com.example.guest.tweetFollow.adapters.TweetListAdapter;
+import com.example.guest.tweetFollow.models.Tweet;
+import com.example.guest.tweetFollow.services.TwitterService;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -25,30 +21,30 @@ import okhttp3.Response;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RestaurantsActivity extends AppCompatActivity {
-    public static final String TAG = RestaurantsActivity.class.getSimpleName();
+public class TweetsActivity extends AppCompatActivity {
+    public static final String TAG = TweetsActivity.class.getSimpleName();
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    private RestaurantListAdapter mAdapter;
+    private TweetListAdapter mAdapter;
 
-    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+    public ArrayList<Tweet> mTweets = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurants);
+        setContentView(R.layout.activity_tweets);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
-        getRestaurants(location);
+        getTweets(location);
     }
 
-    private void getRestaurants(String location) {
-        final YelpService yelpService = new YelpService();
+    private void getTweets(String location) {
+        final TwitterService twitterService = new TwitterService();
 
-        yelpService.findRestaurants(location, new Callback() {
+        twitterService.findTweets(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -57,16 +53,16 @@ public class RestaurantsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) {
-                mRestaurants = yelpService.processResults(response);
+                mTweets = twitterService.processResults(response);
 
-                RestaurantsActivity.this.runOnUiThread(new Runnable() {
+                TweetsActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
-                        mAdapter = new RestaurantListAdapter(getApplicationContext(), mRestaurants);
+                        mAdapter = new TweetListAdapter(getApplicationContext(), mTweets);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(RestaurantsActivity.this);
+                                new LinearLayoutManager(TweetsActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }
@@ -76,32 +72,32 @@ public class RestaurantsActivity extends AppCompatActivity {
     }
 }
 
-//public class RestaurantsActivity extends AppCompatActivity {
-//    public static final String TAG = RestaurantsActivity.class.getSimpleName();
+//public class TweetsActivity extends AppCompatActivity {
+//    public static final String TAG = TweetsActivity.class.getSimpleName();
 //
 //    @Bind(R.id.locationTextView) TextView mLocationTextView;
 //    @Bind(R.id.listView) ListView mListView;
 //
-//    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+//    public ArrayList<Tweet> mTweets = new ArrayList<>();
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_restaurants);
+//        setContentView(R.layout.activity_tweets);
 //        ButterKnife.bind(this);
 //
 //        Intent intent = getIntent();
 //        String location = intent.getStringExtra("location");
 //
-//        mLocationTextView.setText("Here are all the restaurants near: " + location);
+//        mLocationTextView.setText("Here are all the tweets near: " + location);
 //
-//        getRestaurants(location);
+//        getTweets(location);
 //    }
 //
-//    private void getRestaurants(String location) {
-//        final YelpService yelpService = new YelpService();
+//    private void getTweets(String location) {
+//        final TwitterService yelpService = new TwitterService();
 //
-//        yelpService.findRestaurants(location, new Callback() {
+//        yelpService.findTweets(location, new Callback() {
 //
 //            @Override
 //            public void onFailure(Call call, IOException e) {
@@ -110,29 +106,29 @@ public class RestaurantsActivity extends AppCompatActivity {
 //
 //            @Override
 //            public void onResponse(Call call, Response response) {
-//                mRestaurants = yelpService.processResults(response);
+//                mTweets = yelpService.processResults(response);
 //
-//                RestaurantsActivity.this.runOnUiThread(new Runnable() {
+//                TweetsActivity.this.runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {
 //
-//                        String[] restaurantNames = new String[mRestaurants.size()];
-//                        for (int i = 0; i < restaurantNames.length; i++) {
-//                            restaurantNames[i] = mRestaurants.get(i).getName();
+//                        String[] tweetNames = new String[mTweets.size()];
+//                        for (int i = 0; i < tweetNames.length; i++) {
+//                            tweetNames[i] = mTweets.get(i).getName();
 //                        }
 //
-//                        ArrayAdapter adapter = new ArrayAdapter(RestaurantsActivity.this,
-//                                android.R.layout.simple_list_item_1, restaurantNames);
+//                        ArrayAdapter adapter = new ArrayAdapter(TweetsActivity.this,
+//                                android.R.layout.simple_list_item_1, tweetNames);
 //                        mListView.setAdapter(adapter);
 //
-//                        for (Restaurant restaurant : mRestaurants) {
-//                            Log.d(TAG, "Name: " + restaurant.getName());
-//                            Log.d(TAG, "Phone: " + restaurant.getPhone());
-//                            Log.d(TAG, "Website: " + restaurant.getWebsite());
-//                            Log.d(TAG, "Image url: " + restaurant.getImageUrl());
-//                            Log.d(TAG, "Rating: " + Double.toString(restaurant.getRating()));
-//                            Log.d(TAG, "Address: " + android.text.TextUtils.join(", ", restaurant.getAddress()));
-//                            Log.d(TAG, "Categories: " + restaurant.getCategories().toString());
+//                        for (Tweet tweet : mTweets) {
+//                            Log.d(TAG, "Name: " + tweet.getName());
+//                            Log.d(TAG, "Phone: " + tweet.getPhone());
+//                            Log.d(TAG, "Website: " + tweet.getWebsite());
+//                            Log.d(TAG, "Image url: " + tweet.getImageUrl());
+//                            Log.d(TAG, "Rating: " + Double.toString(tweet.getRating()));
+//                            Log.d(TAG, "Address: " + android.text.TextUtils.join(", ", tweet.getAddress()));
+//                            Log.d(TAG, "Categories: " + tweet.getCategories().toString());
 //                        }
 //                    }
 //                });
@@ -147,15 +143,15 @@ public class RestaurantsActivity extends AppCompatActivity {
 
 
 
-//public class RestaurantsActivity extends AppCompatActivity {
+//public class TweetsActivity extends AppCompatActivity {
 //    @Bind(R.id.locationTextView) TextView mLocationTextView;
 //    @Bind(R.id.listView) ListView mListView;
 //
-//    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+//    public ArrayList<Tweet> mTweets = new ArrayList<>();
 //
-//    public static final String TAG = RestaurantsActivity.class.getSimpleName();
+//    public static final String TAG = TweetsActivity.class.getSimpleName();
 //
-//    private String[] restaurants = new String[] {"Sweet Hereafte", "Cricket", "Hawthorne Fish House", "Viking Soul Food",
+//    private String[] tweets = new String[] {"Sweet Hereafte", "Cricket", "Hawthorne Fish House", "Viking Soul Food",
 //            "Red Square", "Horse Brass", "Dick's Kitchen", "Taco Bell", "Me Kha Noodle Bar",
 //            "La Bonita Taqueria", "Smokehouse Tavern", "Pembiche", "Kay's Bar", "Gnarly Grey", "Slappy Cakes", "Mi Mero Mole" };
 //
@@ -166,39 +162,39 @@ public class RestaurantsActivity extends AppCompatActivity {
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_restaurants);
+//        setContentView(R.layout.activity_tweets);
 //        ButterKnife.bind(this);
 //
 //        mListView = (ListView) findViewById(R.id.listView);
 //        mLocationTextView = (TextView) findViewById(R.id.locationTextView);
 //
-//        MyRestaurantsArrayAdapter adapter = new MyRestaurantsArrayAdapter(this, android.R.layout.simple_list_item_1,
-//               restaurants, cuisines); //must match constructor!
+//        MyTweetsArrayAdapter adapter = new MyTweetsArrayAdapter(this, android.R.layout.simple_list_item_1,
+//               tweets, cuisines); //must match constructor!
 //
-////        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, restaurants);
+////        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets);
 //        mListView.setAdapter(adapter);
 //
 //        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String restaurant = ((TextView)view).getText().toString();
-//                Toast.makeText(RestaurantsActivity.this, restaurant, Toast.LENGTH_LONG).show();
+//                String tweet = ((TextView)view).getText().toString();
+//                Toast.makeText(TweetsActivity.this, tweet, Toast.LENGTH_LONG).show();
 //                Log.v("TAG", "In the onItemClickListener!");
 //            }
 //        });
 //
 //        Intent intent = getIntent();
 //        String location = intent.getStringExtra("location");
-//        mLocationTextView.setText("Here are all the restaurants near: " + location);
+//        mLocationTextView.setText("Here are all the tweets near: " + location);
 //        Log.d("TAG", "In the onCreate method!");
 //
-//        getRestaurants(location);
+//        getTweets(location);
 //
 //    }
 //
-//    private void getRestaurants(String location) {
-//        final YelpService yelpService = new YelpService();
-//        yelpService.findRestaurants(location, new Callback() {
+//    private void getTweets(String location) {
+//        final TwitterService yelpService = new TwitterService();
+//        yelpService.findTweets(location, new Callback() {
 //
 //            @Override
 //            public void onFailure(Call call, IOException e) {
@@ -211,7 +207,7 @@ public class RestaurantsActivity extends AppCompatActivity {
 //                    String jsonData = response.body().string();
 //                    if (response.isSuccessful()) {
 //                        Log.v(TAG, jsonData);
-//                        mRestaurants = yelpService.processResults(response);
+//                        mTweets = yelpService.processResults(response);
 //                    }
 //                } catch (IOException e) {
 //                    e.printStackTrace();

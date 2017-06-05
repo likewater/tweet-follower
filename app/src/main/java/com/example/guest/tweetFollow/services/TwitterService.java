@@ -1,7 +1,7 @@
-package com.example.guest.myrestaurants.services;
+package com.example.guest.tweetFollow.services;
 
-import com.example.guest.myrestaurants.Constants;
-import com.example.guest.myrestaurants.models.Restaurant;
+import com.example.guest.tweetFollow.Constants;
+import com.example.guest.tweetFollow.models.Tweet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +19,9 @@ import okhttp3.Response;
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
-public class YelpService {
+public class TwitterService {
 
-    public static void findRestaurants(String location, Callback callback) {
+    public static void findTweets(String location, Callback callback) {
         OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.YELP_CONSUMER_KEY, Constants.YELP_CONSUMER_SECRET);
         consumer.setTokenWithSecret(Constants.YELP_TOKEN, Constants.YELP_TOKEN_SECRET);
 
@@ -41,8 +41,8 @@ public class YelpService {
         call.enqueue(callback);
     }
 
-    public ArrayList<Restaurant> processResults(Response response) {
-        ArrayList<Restaurant> restaurants = new ArrayList<>();
+    public ArrayList<Tweet> processResults(Response response) {
+        ArrayList<Tweet> tweets = new ArrayList<>();
 
         try {
             String jsonData = response.body().string();
@@ -50,32 +50,32 @@ public class YelpService {
                 JSONObject yelpJSON = new JSONObject(jsonData);
                 JSONArray businessesJSON = yelpJSON.getJSONArray("businesses");
                 for (int i = 0; i < businessesJSON.length(); i++) {
-                    JSONObject restaurantJSON = businessesJSON.getJSONObject(i);
-                    String name = restaurantJSON.getString("name");
-                    String phone = restaurantJSON.optString("display_phone", "Phone not available");
-                    String website = restaurantJSON.getString("url");
-                    double rating = restaurantJSON.getDouble("rating");
-                    String imageUrl = restaurantJSON.getString("image_url");
-                    double latitude = restaurantJSON.getJSONObject("location")
+                    JSONObject tweetJSON = businessesJSON.getJSONObject(i);
+                    String name = tweetJSON.getString("name");
+                    String phone = tweetJSON.optString("display_phone", "Phone not available");
+                    String website = tweetJSON.getString("url");
+                    double rating = tweetJSON.getDouble("rating");
+                    String imageUrl = tweetJSON.getString("image_url");
+                    double latitude = tweetJSON.getJSONObject("location")
                             .getJSONObject("coordinate").getDouble("latitude");
-                    double longitude = restaurantJSON.getJSONObject("location")
+                    double longitude = tweetJSON.getJSONObject("location")
                             .getJSONObject("coordinate").getDouble("longitude");
                     ArrayList<String> address = new ArrayList<>();
-                    JSONArray addressJSON = restaurantJSON.getJSONObject("location")
+                    JSONArray addressJSON = tweetJSON.getJSONObject("location")
                             .getJSONArray("display_address");
                     for (int y = 0; y < addressJSON.length(); y++) {
                         address.add(addressJSON.get(y).toString());
                     }
 
                     ArrayList<String> categories = new ArrayList<>();
-                    JSONArray categoriesJSON = restaurantJSON.getJSONArray("categories");
+                    JSONArray categoriesJSON = tweetJSON.getJSONArray("categories");
 
                     for (int y = 0; y < categoriesJSON.length(); y++) {
                         categories.add(categoriesJSON.getJSONArray(y).get(0).toString());
                     }
-                    Restaurant restaurant = new Restaurant(name, phone, website, rating,
+                    Tweet tweet = new Tweet(name, phone, website, rating,
                             imageUrl, address, latitude, longitude, categories);
-                    restaurants.add(restaurant);
+                    tweets.add(tweet);
                 }
             }
         } catch (IOException e) {
@@ -83,6 +83,6 @@ public class YelpService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return restaurants;
+        return tweets;
     }
 }

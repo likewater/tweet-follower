@@ -1,9 +1,9 @@
-package com.example.guest.myrestaurants;
+package com.example.guest.tweetFollow;
 
 
 import android.support.test.rule.ActivityTestRule;
 
-import com.example.guest.myrestaurants.ui.MainActivity;
+import com.example.guest.tweetFollow.ui.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

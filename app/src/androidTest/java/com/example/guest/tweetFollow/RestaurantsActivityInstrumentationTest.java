@@ -1,9 +1,9 @@
-package com.example.guest.myrestaurants;
+package com.example.guest.tweetFollow;
 
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import com.example.guest.myrestaurants.ui.RestaurantsActivity;
+import com.example.guest.tweetFollow.ui.TweetsActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,8 +21,8 @@ import static org.hamcrest.core.IsNot.not;
 public class RestaurantsActivityInstrumentationTest {
 
     @Rule
-    public ActivityTestRule<RestaurantsActivity> activityTestRule =
-            new ActivityTestRule<>(RestaurantsActivity.class);
+    public ActivityTestRule<TweetsActivity> activityTestRule =
+            new ActivityTestRule<>(TweetsActivity.class);
 
     @Test
     public void listItemClickDisplaysToastWithCorrectRestaurant() {

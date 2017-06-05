@@ -1,4 +1,4 @@
-package com.example.guest.myrestaurants.ui;
+package com.example.guest.tweetFollow.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.graphics.Typeface;
 
 //public class MainActivity extends AppCompatActivity {
-//    private Button mFindRestaurantsButton;
+//    private Button mFindTweetsButton;
 //    private EditText mLocationEditText;
 //    private TextView mAppNameTextView;
 //
@@ -19,16 +19,16 @@ import android.graphics.Typeface;
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 //        mLocationEditText = (EditText) findViewById(R.id.locationEditText);
-//        mFindRestaurantsButton = (Button) findViewById(R.id.findRestaurantsButton);
+//        mFindTweetsButton = (Button) findViewById(R.id.findTweetsButton);
 //        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
 //        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
 //        mAppNameTextView.setTypeface(ostrichFont);
 //
-//        mFindRestaurantsButton.setOnClickListener(new View.OnClickListener() {
+//        mFindTweetsButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                String location = mLocationEditText.getText().toString();
-//                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+//                Intent intent = new Intent(MainActivity.this, TweetsActivity.class);
 //                intent.putExtra("location", location);
 //                startActivity(intent);
 //            }
@@ -36,13 +36,13 @@ import android.graphics.Typeface;
 //    }
 //}
 
-import com.example.guest.myrestaurants.R;
+import com.example.guest.tweetFollow.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
+    @Bind(R.id.findTweetsButton) Button mFindTweetsButton;
     @Bind(R.id.locationEditText) EditText mLocationEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
         mAppNameTextView.setTypeface(ostrichFont);
 
-        mFindRestaurantsButton.setOnClickListener(this);
+        mFindTweetsButton.setOnClickListener(this);
     }
             @Override
             public void onClick(View v) {
-                if (v == mFindRestaurantsButton) {
+                if (v == mFindTweetsButton) {
                     String location = mLocationEditText.getText().toString();
-                    Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+                    Intent intent = new Intent(MainActivity.this, TweetsActivity.class);
                     intent.putExtra("location", location);
                     startActivity(intent);
                 }
